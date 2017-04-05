@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8705597D1E8F741E002588A2 /* qrcode.png in Resources */ = {isa = PBXBuildFile; fileRef = 8705597C1E8F741E002588A2 /* qrcode.png */; };
 		875BB8851E8F428600E87818 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BB8841E8F428600E87818 /* AppDelegate.swift */; };
 		875BB8871E8F428600E87818 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875BB8861E8F428600E87818 /* ViewController.swift */; };
 		875BB88A1E8F428600E87818 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 875BB8881E8F428600E87818 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8705597C1E8F741E002588A2 /* qrcode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcode.png; sourceTree = "<group>"; };
 		875BB8811E8F428600E87818 /* QRCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		875BB8841E8F428600E87818 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		875BB8861E8F428600E87818 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 		875BB8831E8F428600E87818 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
+				8705597C1E8F741E002588A2 /* qrcode.png */,
 				875BB8841E8F428600E87818 /* AppDelegate.swift */,
 				875BB8861E8F428600E87818 /* ViewController.swift */,
 				875BB8B21E8F42BE00E87818 /* QRCodeTool.swift */,
@@ -241,6 +244,7 @@
 				875BB88F1E8F428600E87818 /* LaunchScreen.storyboard in Resources */,
 				875BB88C1E8F428600E87818 /* Assets.xcassets in Resources */,
 				875BB88A1E8F428600E87818 /* Main.storyboard in Resources */,
+				8705597D1E8F741E002588A2 /* qrcode.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +526,7 @@
 				875BB8AB1E8F428600E87818 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		875BB8AC1E8F428600E87818 /* Build configuration list for PBXNativeTarget "QRCodeTests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +535,7 @@
 				875BB8AE1E8F428600E87818 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		875BB8AF1E8F428600E87818 /* Build configuration list for PBXNativeTarget "QRCodeUITests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +544,7 @@
 				875BB8B11E8F428600E87818 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

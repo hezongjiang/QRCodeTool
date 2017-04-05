@@ -13,7 +13,7 @@ typealias QRResultBlock = (_ strs: [String]) -> ()
 
 class QRCodeTool: NSObject {
 
-    /// 单利
+    /// 单例
     public static let shared: QRCodeTool = QRCodeTool()
     
     private override init() {
@@ -48,7 +48,6 @@ class QRCodeTool: NSObject {
     fileprivate var resultBlock: QRResultBlock?
 }
 
-// MARK: - 公共方法
 extension QRCodeTool {
     
     /// 开始扫描
@@ -95,7 +94,7 @@ extension QRCodeTool {
     }
     
     /** 从图片中识别二维码 */
-    public class func distinguishQRCodeFromImage(_ sourceImage: UIImage, result: QRResultBlock) {
+    public func distinguishQRCodeFromImage(_ sourceImage: UIImage, result: QRResultBlock) {
         
         // 创建一个上下文
         let context = CIContext()
@@ -119,6 +118,80 @@ extension QRCodeTool {
             results.append(resultFeature.messageString!)
         }
         result(results)
+    }
+    
+    /// 生成二维码
+    public func createQRCodeImage(str: String, size: CGFloat, iconImage: UIImage? = nil) -> UIImage? {
+        
+        // 创建一个生成二维码的滤镜
+        guard let filter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
+        // 恢复滤镜默认设置
+        filter.setDefaults()
+        
+        // 设置滤镜的输入数据
+        let data = str.data(using: String.Encoding.utf8)
+        filter.setValue(data, forKey: "inputMessage")
+        
+        // 从滤镜中获取图片
+        guard let image = filter.outputImage else { return nil }
+        
+        let imageUI = createBigImage(image: image, size: size)
+        
+        return iconImage == nil ? imageUI : createImage(bgImage: imageUI, iconImage: iconImage)!
+    }
+    
+    private func createImage(bgImage: UIImage?, iconImage: UIImage?) -> UIImage?
+    {
+        if bgImage == nil || iconImage == nil { return nil }
+        
+        // 1.开启图片上下文
+        UIGraphicsBeginImageContext(bgImage!.size)
+        // 2.绘制背景
+        bgImage!.draw(in: CGRect(origin: CGPoint(), size: bgImage!.size))
+        
+        // 3.绘制图标
+        let w:CGFloat = 50
+        let h = w
+        let x = (bgImage!.size.width - w) * 0.5
+        let y = (bgImage!.size.height - h) * 0.5
+        
+        iconImage!.draw(in: CGRect(x: x, y: y, width: w, height: h))
+        // 4.取出图片
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        // 5.关闭上下文
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
+    
+    /// 根据CIImage生成指定大小的高清UIImage
+    ///
+    /// - Parameters:
+    ///   - image: 指定CIImage
+    ///   - size: 指定大小
+    /// - Returns: 生成好的图片
+    private func createBigImage(image: CIImage, size: CGFloat) -> UIImage {
+        
+        let extent: CGRect = image.extent.integral
+        let scale: CGFloat = min(size/extent.width, size/extent.height)
+        
+        // 1.创建bitmap;
+        let width = extent.width * scale
+        let height = extent.height * scale
+        let cs: CGColorSpace = CGColorSpaceCreateDeviceGray()
+        let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: cs, bitmapInfo: 0)!
+        
+        let context = CIContext(options: nil)
+        let bitmapImage: CGImage = context.createCGImage(image, from: extent)!
+        
+        bitmapRef.interpolationQuality = CGInterpolationQuality.none
+        bitmapRef.scaleBy(x: scale, y: scale);
+        bitmapRef.draw(bitmapImage, in: extent);
+        
+        // 2.保存bitmap到图片
+        let scaledImage: CGImage = bitmapRef.makeImage()!
+        
+        return UIImage(cgImage: scaledImage)
     }
 }
 
