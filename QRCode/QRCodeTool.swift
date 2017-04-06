@@ -9,9 +9,9 @@
 import UIKit
 import AVFoundation
 
-typealias QRResultBlock = (_ strs: [String]) -> ()
+public typealias QRResultBlock = (_ strs: [String]) -> ()
 
-class QRCodeTool: NSObject {
+public class QRCodeTool: NSObject {
 
     /// 单例
     public static let shared: QRCodeTool = QRCodeTool()
@@ -150,7 +150,7 @@ extension QRCodeTool {
         bgImage!.draw(in: CGRect(origin: CGPoint(), size: bgImage!.size))
         
         // 3.绘制图标
-        let w:CGFloat = 50
+        let w:CGFloat = 40
         let h = w
         let x = (bgImage!.size.width - w) * 0.5
         let y = (bgImage!.size.height - h) * 0.5
@@ -198,7 +198,7 @@ extension QRCodeTool {
 // MARK: - AVCaptureMetadataOutputObjectsDelegate
 extension QRCodeTool: AVCaptureMetadataOutputObjectsDelegate {
 
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+    public func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         
         var results = [String]()
         
